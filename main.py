@@ -1,19 +1,15 @@
 import discord
 from discord.ext import commands
 
-bot = commands.Bot(command_prefix="!")  
+bot = commands.Bot(command_prefix="!") 
+
+initial_extensions = ['cogs.mod']
+
+for extension in initial_extensions:
+    bot.load_extension(extension)
+
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name} ({bot.user.id})')
-
-@bot.event
-async def on_member_join(member):
-    channel = member.guild.get_channel(1234567890)  
-    if channel:
-        await channel.send(f'Welcome, {member.mention}!')
-
-@bot.command()
-async def hello(ctx):
-    await ctx.send(f'Hello, {ctx.author.mention}!')
 
 bot.run('YOUR_BOT_TOKEN')
